@@ -41,6 +41,8 @@ class CRM
 			modify_contact
 		when 3
 		 	display_all_contacts
+		 when 4
+		 	display_contact
 		else 
 			puts "Wrong choice"
 			return
@@ -83,6 +85,29 @@ class CRM
 			# when 4 then puts @rolodex.modify_contact(note_name)
 		end
 	end
+
+	def display_contact
+		puts "Which attribute would you like to find"
+		puts "(1) for First name"
+		puts "(2) for Last name"
+		puts "(3) for Email"
+		puts "(4) for Note"
+		search_attr = gets.chomp.to_i
+		case search_attr
+			when 1 then find_by_first_name
+			# when 2 then puts @rolodex.modify_contact(last_name)
+			# when 3 then puts @rolodex.modify_contact(email_name)
+			# when 4 then puts @rolodex.modify_contact(note_name)
+		end
+	end
+
+	def find_by_first_name
+		puts "Please enter the first name of who you want to search for"
+		search_f = gets.chomp.to_s
+		contact = @rolodex.find_user_by_first_name(search_f)
+		puts "These were the matching finds"
+		puts "ID: #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
+	end	
 
 	def modify_first_name
 		puts "Enter the index"
