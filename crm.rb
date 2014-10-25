@@ -96,7 +96,6 @@ class CRM
 	end
 
 	def display_all_contacts
-		# system ("clear")
 		@rolodex.contacts.each do |contact|
 			puts "First name:#{contact.first_name}       Last name:#{contact.last_name}        Email: <#{contact.email}>"
 			puts
