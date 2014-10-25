@@ -8,8 +8,20 @@ class Rolodex
 	end
 
 	def add_contact(contact)
-		contact_id = @@index
+		contact.id = @@index
 		@@index += 1
 		@contacts << contact
+	end
+
+	def modify_contacts(contact)
+	end
+
+	def find_user_by_id(id)
+		@contacts.each do |contact|
+			if contact.id == id
+				return contact
+			end
+		end
+
 	end
 end
