@@ -86,13 +86,28 @@ class CRM
 
 	def modify_first_name
 		puts "Enter the index"
+		#Setting a variable to user input of index
 		contact_id = gets.chomp.to_i
+		#Setting contact variable to rolodex find_user_by_id and passing in contact_id
 		contact = @rolodex.find_user_by_id(contact_id)
 		puts "Your name is #{contact.first_name}"
 		puts "Enter new name"
+		#Taking in first name change
 		new_name = gets.chomp
-		contact.first_name = new_name
-		puts"This is your new name #{contact.first_name}"
+		
+		#Asking the user whether they want to save changes
+		puts "Are you sure you want to save the changes. type y or n"
+		#Prompt variable to take user input
+		prompt = gets.chomp.downcase
+		# Prompting the user if they are sure about modifying their name
+		if prompt == "y"
+			contact.first_name = new_name
+			puts"This is your new name #{contact.first_name}"
+		elsif prompt == "n"
+			return
+		else
+			puts "That was not a valid choice"
+		end
 	end
 
 	def display_all_contacts
