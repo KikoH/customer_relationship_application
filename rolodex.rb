@@ -1,7 +1,7 @@
 class Rolodex
 	attr_reader :contacts
 	
-	@@index = 0
+	@@index = 1
 	
 	def initialize
 		@contacts = []
