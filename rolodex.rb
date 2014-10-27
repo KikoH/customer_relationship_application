@@ -32,6 +32,22 @@ class Rolodex
 		end
 	end
 
+	def find_user_by_note(note)
+		@contacts.each do |contact|
+			if contact.note.include?(note)
+				return contact
+			end
+		end
+	end
+
+	def find_user_by_email(email)
+		@contacts.each do |contact|
+			if contact.email.include?(email)
+				return contact
+			end
+		end
+	end
+
 	def find_user_by_id(id)
 		@contacts.each do |contact|
 			if contact.id == id

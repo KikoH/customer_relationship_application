@@ -10,15 +10,15 @@ class CRM
 	end
 	
 	def print_menu
-		# system "clear"
+		system "clear"
 		puts "Welcome to #{@name}. Please choose one of the following numbers"
 		puts
 		puts "(1) Add a contact"
 		puts "(2) Modify a contact"
 		puts "(3) Display all contacts"
 		puts "(4) Display a contact"
-		puts "(5) Display an attribute"
-		puts "(6) Delete a contact"
+		# puts "(5) Display an attribute"
+		# puts "(6) Delete a contact"
 		puts "(7) Exit"
 	end
 
@@ -34,14 +34,16 @@ class CRM
 	def choice(input)
 		case input
 		when 1 
-		 	# system "clear"
+		 	system "clear"
 		 	add_contact
 		when 2
-			# system "clear"
+			system "clear"
 			modify_contact
 		when 3
+			system "clear"
 		 	display_all_contacts
 		 when 4
+		 	system "clear"
 		 	display_contact
 		else 
 			puts "Wrong choice"
@@ -59,13 +61,13 @@ class CRM
 		puts "Please enter Note:"
 		note = gets.chomp
 
-		# system "clear"
+		system "clear"
 
 		puts "You have successfuly added #{first_name} #{last_name}"
 
 		sleep(2)
 		
-		# system "clear"
+		system "clear"
 
 		contact = Contact.new(first_name, last_name, email, note)
 		@rolodex.add_contact(contact)
@@ -81,8 +83,8 @@ class CRM
 		case modify_attr
 			when 1 then modify_first_name
 			when 2 then modify_last_name
-			# when 3 then puts @rolodex.modify_contact(email_name)
-			# when 4 then puts @rolodex.modify_contact(note_name)
+			when 3 then modify_email
+			when 4 then modify_note
 		end
 	end
 
@@ -98,31 +100,39 @@ class CRM
 				contact = @rolodex.find_user_by_first_name(search_f)
 			#Checking if contact.id is defined. If it is then display the contact if not then puts no matches found.
 			if defined? contact.id
+				system "clear"
 				puts "These were the matching finds"
+
 				puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
+
+				prompt
 			else
 				puts "No matches found"
+				
+				prompt
 			end
 			when 2
 				puts "Please enter the last name of who you want to search for"
 				search_f = gets.chomp.to_s
 				contact = @rolodex.find_user_by_last_name(search_f)
 			if defined? contact.id
+				system "clear"
 				puts "These were the matching finds"
 				puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
 			else
 				puts "No matches found"
+				sleep(2)
 			end
 		end
 	end
 
 	def modify_first_name
-		puts "Enter the index"
-		#Setting a variable to user input of index
-		contact_id = gets.chomp.to_i
+		#Getting first name to modify from user
+		puts "Please enter First name to be edited"
+		contact_first_name = gets.chomp
 		#Setting contact variable to rolodex find_user_by_id and passing in contact_id
-		contact = @rolodex.find_user_by_id(contact_id)
-		puts "Your name is #{contact.first_name}"
+		contact = @rolodex.find_user_by_first_name(contact_first_name)
+		puts "Contact found matching first name #{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
 		puts "Enter new name"
 		#Taking in first name change
 		new_name = gets.chomp
@@ -134,7 +144,91 @@ class CRM
 		# Prompting the user if they are sure about modifying their name
 		if prompt == "y"
 			contact.first_name = new_name
-			puts"This is your new name #{contact.first_name}"
+			puts"Name changed to #{contact.first_name}"
+			prompt
+		elsif prompt == "n"
+			return
+		else
+			puts "That was not a valid choice"
+
+			prompt
+		end
+	end
+
+	def modify_last_name
+		puts "Please enter Last name to be edited"
+		#Setting a variable to user input of index
+		contact_last_name = gets.chomp
+		#Setting contact variable to rolodex  and passing in contact_id
+		contact = @rolodex.find_user_by_last_name(contact_last_name)
+		puts "Contact found matching Last name #{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
+		puts "Enter new last name"
+		#Taking in first name change
+		new_name = gets.chomp.to_s
+		
+		#Asking the user whether they want to save changes
+		puts "Are you sure you want to save the changes. type y or n"
+		#Prompt variable to take user input
+		prompt = gets.chomp.downcase
+		# Prompting the user if they are sure about modifying their name
+		if prompt == "y"
+			contact.last_name = new_name
+			puts "Contact edited"
+
+			puts "#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
+		elsif prompt == "n"
+			return
+		else
+			puts "That was not a valid choice"
+		end
+	end
+
+	def modify_email
+		#Getting email to modify from user
+		puts "Please enter Email to be edited"
+		contact_email = gets.chomp
+		#Setting contact variable to rolodex find_user_by_id and passing in contact_id
+		contact = @rolodex.find_user_by_email(contact_email)
+		puts "Email found #{contact.email}"
+		puts "Enter new email"
+		#Taking in first name change
+		new_email = gets.chomp
+		
+		#Asking the user whether they want to save changes
+		puts "Are you sure you want to save the changes. type y or n"
+		#Prompt variable to take user input
+		prompt = gets.chomp.downcase
+		# Prompting the user if they are sure about modifying their name
+		if prompt == "y"
+			contact.email = new_email
+			puts "Contact edited"
+			puts "#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
+		elsif prompt == "n"
+			return
+		else
+			puts "That was not a valid choice"
+		end
+	end
+
+	def modify_note
+		#Asking for note input from user
+		puts "Please enter Note to be edited"
+		contact_note = gets.chomp
+		#Setting contact variable to rolodex find_user_by_id and passing in contact_id
+		contact = @rolodex.find_user_by_note(contact_note)
+		puts "Matching note #{contact.note}"
+		puts "Enter new note"
+		#Taking in first name change
+		new_note = gets.chomp
+		#Asking the user whether they want to save changes
+		puts "Are you sure you want to save the changes. type y or n"
+		#Prompt variable to take user input
+		prompt = gets.chomp.downcase
+		# Prompting the user if they are sure about modifying their name
+		if prompt == "y"
+			contact.note = new_note
+			puts"Contact edited"
+			puts "#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
 		elsif prompt == "n"
 			return
 		else
@@ -148,15 +242,18 @@ class CRM
 			puts
 		end
 
-		puts "Click any key to continue"
+		#Prompt user to continue
+		prompt
 
+	end
+
+	def prompt
+
+		puts "Enter any key to continue"
 		pause = ""
-		pause = gets.chomp
-		if pause != ""
-		end
-
-		# system "clear"
-
+				pause = gets.chomp
+				if pause != ""
+				end
 	end
 end
 
