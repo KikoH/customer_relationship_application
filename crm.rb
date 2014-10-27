@@ -140,13 +140,16 @@ class CRM
 		#Asking the user whether they want to save changes
 		puts "Are you sure you want to save the changes. type y or n"
 		#Prompt variable to take user input
-		prompt = gets.chomp.downcase
+		user_prompt = gets.chomp.downcase
 		# Prompting the user if they are sure about modifying their name
-		if prompt == "y"
+		if user_prompt == "y"
 			contact.first_name = new_name
-			puts"Name changed to #{contact.first_name}"
+			puts"Contact edited"
+
+			puts "#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
+			
 			prompt
-		elsif prompt == "n"
+		elsif user_prompt == "n"
 			return
 		else
 			puts "That was not a valid choice"
@@ -169,14 +172,16 @@ class CRM
 		#Asking the user whether they want to save changes
 		puts "Are you sure you want to save the changes. type y or n"
 		#Prompt variable to take user input
-		prompt = gets.chomp.downcase
+		user_prompt = gets.chomp.downcase
 		# Prompting the user if they are sure about modifying their name
-		if prompt == "y"
+		if user_prompt == "y"
 			contact.last_name = new_name
 			puts "Contact edited"
 
 			puts "#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email}"
-		elsif prompt == "n"
+
+			prompt
+		elsif user_prompt == "n"
 			return
 		else
 			puts "That was not a valid choice"
@@ -257,7 +262,7 @@ class CRM
 	end
 end
 
-crm = CRM.new("Kiko Crm")
+crm = CRM.new("Bitmaker CRM")
 
 crm.main_menu 
 
