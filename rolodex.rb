@@ -13,7 +13,9 @@ class Rolodex
 		@contacts << contact
 	end
 
-	def modify_contacts(contact)
+	def delete_contact(contact)
+		find_user_by_id(contact)
+		@contacts.delete_if{|x| x.id == contact}
 	end
 
 	def find_user_by_first_name(first_name)

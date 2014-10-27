@@ -18,7 +18,7 @@ class CRM
 		puts "(3) Display all contacts"
 		puts "(4) Display a contact"
 		# puts "(5) Display an attribute"
-		# puts "(6) Delete a contact"
+		puts "(6) Delete a contact"
 		puts "(7) Exit"
 	end
 
@@ -45,6 +45,9 @@ class CRM
 		 when 4
 		 	system "clear"
 		 	display_contact
+		 when 6
+		 	system "clear"
+		 	delete_contact
 		else 
 			puts "Wrong choice"
 			return
@@ -243,13 +246,28 @@ class CRM
 
 	def display_all_contacts
 		@rolodex.contacts.each do |contact|
-			puts "First name:#{contact.first_name}       Last name:#{contact.last_name}        Email: <#{contact.email}>"
+			puts "ID: (#{contact.id}), First name:#{contact.first_name}       Last name:#{contact.last_name}        Email: <#{contact.email}>"
 			puts
 		end
 
 		#Prompt user to continue
 		prompt
 
+	end
+
+	def delete_contact
+		@rolodex.contacts.each do |contact|
+			puts "ID: (#{contact.id}), First name:#{contact.first_name}       Last name:#{contact.last_name}        Email: <#{contact.email}>"
+			puts
+		end
+		
+		puts"Enter ID of user to delete"
+		d_contact = gets.chomp.downcase.to_i
+		contact = @rolodex.delete_contact(d_contact)
+		system ("clear")
+		puts "Contact has been deleted"
+		puts
+		prompt
 	end
 
 	def prompt
