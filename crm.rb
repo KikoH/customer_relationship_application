@@ -80,7 +80,7 @@ class CRM
 		modify_attr = gets.chomp.to_i
 		case modify_attr
 			when 1 then modify_first_name
-			# when 2 then puts @rolodex.modify_contact(last_name)
+			when 2 then modify_last_name
 			# when 3 then puts @rolodex.modify_contact(email_name)
 			# when 4 then puts @rolodex.modify_contact(note_name)
 		end
@@ -90,28 +90,31 @@ class CRM
 		puts "Which attribute would you like to find"
 		puts "(1) for First name"
 		puts "(2) for Last name"
-		puts "(3) for Email"
-		puts "(4) for Note"
 		search_attr = gets.chomp.to_i
 		case search_attr
-			when 1 then find_by_first_name
-			# when 2 then puts @rolodex.modify_contact(last_name)
-			# when 3 then puts @rolodex.modify_contact(email_name)
-			# when 4 then puts @rolodex.modify_contact(note_name)
+			when 1
+				puts "Please enter the first name of who you want to search for"
+				search_f = gets.chomp.to_s
+				contact = @rolodex.find_user_by_first_name(search_f)
+			#Checking if contact.id is defined. If it is then display the contact if not then puts no matches found.
+			if defined? contact.id
+				puts "These were the matching finds"
+				puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
+			else
+				puts "No matches found"
+			end
+			when 2
+				puts "Please enter the last name of who you want to search for"
+				search_f = gets.chomp.to_s
+				contact = @rolodex.find_user_by_last_name(search_f)
+			if defined? contact.id
+				puts "These were the matching finds"
+				puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
+			else
+				puts "No matches found"
+			end
 		end
 	end
-
-	def find_by_first_name
-		puts "Please enter the first name of who you want to search for"
-		search_f = gets.chomp.to_s
-		contact = @rolodex.find_user_by_first_name(search_f)
-		if defined? contact.id
-			puts "These were the matching finds"
-			puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
-		else
-			puts "No matches found"
-		end
-	end	
 
 	def modify_first_name
 		puts "Enter the index"
