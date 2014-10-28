@@ -14,8 +14,14 @@ class Rolodex
 	end
 
 	def delete_contact(contact)
-		find_user_by_id(contact)
-		@contacts.delete_if{|x| x.id == contact}
+		contact = find_user_by_id(contact)
+	
+		if contact == false
+			return false
+		else
+			@contacts.delete_if{|x| x.id == contact.id}
+			return true
+		end
 	end
 
 	def find_user_by_first_name(first_name)
@@ -54,6 +60,8 @@ class Rolodex
 		@contacts.each do |contact|
 			if contact.id == id
 				return contact
+			else
+				return false
 			end
 		end
 

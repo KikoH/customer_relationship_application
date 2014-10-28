@@ -17,9 +17,11 @@ class CRM
 		puts "(2) Modify a contact"
 		puts "(3) Display all contacts"
 		puts "(4) Display a contact"
-		# puts "(5) Display an attribute"
+		puts "(5) Display an attribute"
 		puts "(6) Delete a contact"
 		puts "(7) Exit"
+		puts
+		puts "Please choose a number"
 	end
 
 	def main_menu
@@ -42,9 +44,13 @@ class CRM
 		when 3
 			system "clear"
 		 	display_all_contacts
+		 	prompt
 		 when 4
 		 	system "clear"
 		 	display_contact
+		 when 5
+		 	system "clear"
+		 	display_attribute
 		 when 6
 		 	system "clear"
 		 	delete_contact
@@ -251,21 +257,25 @@ class CRM
 		end
 
 		#Prompt user to continue
-		prompt
+		#prompt
 
 	end
 
 	def delete_contact
-		@rolodex.contacts.each do |contact|
-			puts "ID: (#{contact.id}), First name:#{contact.first_name}       Last name:#{contact.last_name}        Email: <#{contact.email}>"
-			puts
-		end
-		
+		display_all_contacts
 		puts"Enter ID of user to delete"
 		d_contact = gets.chomp.downcase.to_i
-		contact = @rolodex.delete_contact(d_contact)
+		#Contact_deleted waiting for a boolean value to check if contact was deleted
+		contact_deleted = @rolodex.delete_contact(d_contact)
 		system ("clear")
-		puts "Contact has been deleted"
+		
+		#Checks if contact has been deleted or not
+		if contact_deleted == true
+			puts "Contact has been deleted"
+		elsif contact_deleted == false
+			puts "ID not found"
+		end
+
 		puts
 		prompt
 	end
