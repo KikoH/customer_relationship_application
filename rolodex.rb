@@ -15,7 +15,6 @@ class Rolodex
 
 	def delete_contact(contact)
 		contact = find_user_by_id(contact)
-	
 		if contact == false
 			return false
 		else
@@ -28,6 +27,8 @@ class Rolodex
 		@contacts.each do |contact|
 			if contact.first_name.include?(first_name)
 				return contact
+			else
+				return false
 			end
 		end
 	end
@@ -36,6 +37,8 @@ class Rolodex
 		@contacts.each do |contact|
 			if contact.last_name.include?(last_name)
 				return contact
+			else
+				return false
 			end
 		end
 	end
@@ -44,6 +47,8 @@ class Rolodex
 		@contacts.each do |contact|
 			if contact.note.include?(note)
 				return contact
+			else
+				return false
 			end
 		end
 	end
@@ -52,6 +57,8 @@ class Rolodex
 		@contacts.each do |contact|
 			if contact.email.include?(email)
 				return contact
+			else 
+				return false
 			end
 		end
 	end

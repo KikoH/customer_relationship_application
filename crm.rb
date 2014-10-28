@@ -62,13 +62,13 @@ class CRM
 
 	def add_contact
 		puts "Please enter First name:"
-		first_name = gets.chomp
+		first_name = gets.chomp.downcase
 		puts "Please enter Last name:"
-		last_name = gets.chomp
+		last_name = gets.chomp.downcase
 		puts "Please enter Email:"
-		email = gets.chomp
+		email = gets.chomp.downcase
 		puts "Please enter Note:"
-		note = gets.chomp
+		note = gets.chomp.downcase
 
 		system "clear"
 
@@ -131,6 +131,75 @@ class CRM
 			else
 				puts "No matches found"
 				sleep(2)
+			end
+		end
+	end
+
+	def display_attribute
+		puts "Please select one of the following attributes to display"
+
+		puts "(1) for First name"
+		puts "(2) for Last name"
+		puts "(3) for Email"
+		puts "(4) for Note"
+
+		user_input = gets.chomp.to_i
+		case user_input
+		when 1
+				puts "Please enter First name to look for"
+				first_name = gets.chomp.downcase
+				contact = @rolodex.find_user_by_first_name(first_name)
+			if contact != false
+				puts "Here are the matching results"
+				puts "#{contact.first_name}"
+				puts
+				prompt
+			else
+				puts "No matches found"
+				puts
+				prompt
+			end
+		when 2
+			puts "Please enter First name to look for"
+				last_name = gets.chomp.downcase
+				contact = @rolodex.find_user_by_last_name(last_name)
+			if contact != false
+				puts "Here are the matching results"
+				puts "#{contact.last_name}"
+				puts
+				prompt
+			else
+				puts "No matches found"
+				puts
+				prompt
+			end
+		when 3
+			puts "Please enter Email to look for"
+				email = gets.chomp.downcase
+				contact = @rolodex.find_user_by_email(email)
+			if contact != false
+				puts "Here are the matching results"
+				puts "#{contact.email}"
+				puts
+				prompt
+			else
+				puts "No matches found"
+				puts
+				prompt
+			end
+		when 4
+			puts "Please enter note to look for"
+				note = gets.chomp.downcase
+				contact = @rolodex.find_user_by_note(note)
+			if contact != false
+				puts "Here are the matching results"
+				puts "#{contact.note}"
+				puts
+				prompt
+			else
+				puts "No matches found"
+				puts
+				prompt
 			end
 		end
 	end
