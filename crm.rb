@@ -106,13 +106,16 @@ class CRM
 			when 1
 				puts "Please enter the first name of who you want to search for"
 				search_f = gets.chomp.to_s
-				contact = @rolodex.find_user_by_first_name(search_f)
-			#Checking if contact.id is defined. If it is then display the contact if not then puts no matches found.
-			if defined? contact.id
+				contacts = @rolodex.find_user_by_first_name(search_f)
+				#Checking if contact.id is defined. If it is then display the contact if not then puts no matches found.
+
+			if  !contacts.empty?
 				system "clear"
 				puts "These were the matching finds"
 
-				puts "(ID) #{contact.id}, First name: #{contact.first_name} Last name: #{contact.last_name} Email: #{contact.email}  Note: #{contact.note}"
+				 contacts.each do |contact|
+					puts contact
+				end
 
 				prompt
 			else

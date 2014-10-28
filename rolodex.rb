@@ -24,13 +24,14 @@ class Rolodex
 	end
 
 	def find_user_by_first_name(first_name)
+		results = []
+
 		@contacts.each do |contact|
-			if contact.first_name.include?(first_name)
-				return contact
-			else
-				return false
+			if contact.first_name == first_name
+				results << contact
 			end
 		end
+		return results
 	end
 
 	def find_user_by_last_name(last_name)
